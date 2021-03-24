@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block head_title %}
+blog_post
+{% endblock %}
+
+{% block content %}
+{% for object in object_list %}
+<li><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></li>
+{% endfor %}
+<br>
+
+<button><a href="{% url 'home' %}">Go to Home</a></button>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head_title %}
+home
+{% endblock %}
+
+{% block content %}
+<p>Hello there wlecome to django</p>
+<p>{{ user }}</p>
+<p>{{ user.is_authenticated}}</p>
+<p>{% if user.is_authenticated %}
+    <h2>User only data</h2>
+    {% endif %}
+    {% for i in List %}
+    <li>{{ i }}</li>
+    {% endfor %}
+</p>
+<button><a href="{% url 'Blogpost' %}">go to Blogpost</a></button>
+<button><a href="{% url 'createblog' %}">Create new Blog</a></button>
+<button><a href="{% url 'logout' %}">LogOut</a></button>
+{% endblock %}
