@@ -20,7 +20,7 @@ from rest_framework.permissions import IsAuthenticated
  
 from rest_framework.response import Response
 
-from blog.serializers import blogSerializer, registerationSerializer
+from blog.serializers import blogSerializer, registerationSerializer, userPropertiesSerializer
 
 from rest_framework.generics import ListAPIView
 from django.contrib.auth.models import User
@@ -191,3 +191,34 @@ class APISearchView(ListAPIView):
     permission_classes = (IsAuthenticated,)
     filter_backends = (SearchFilter, OrderingFilter)
     search_fields = ('title', 'content')
+
+@api_view(['GET'],)
+def user_properties_view(request):
+    try:
+        user = request.user
+    except User.DoesNotExists:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method=='GET':
+        serializer = userPropertiesSerializer(user)
+        return Response(serializer.data)
+
+@api_view(['PUT'],)
+def user_properties_update_view(request):
+    try:
+        user = request.user
+    except User.DoesNotExists:
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    if request.method=='PUT':
+        serializer = userPropertiesSerializer(user, data=request.data)
+        data={}
+        if serializer.is_valid():
+            serializer.save()
+            data['response'] = "User Details Successfully Updated"
+            return Response(data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+    
+
+
+

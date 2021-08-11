@@ -28,3 +28,8 @@ class registerationSerializer(serializers.ModelSerializer):
         else:
             raise serializers.ValidationError({'Password': 'Passwords must match'})
         return user
+
+class userPropertiesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['pk', 'username', 'email']

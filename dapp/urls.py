@@ -34,6 +34,10 @@ urlpatterns = [
     path('api/blog', views.BlogPost_list),
     path('api/blog/<int:id>',views.BlogPost_detail_view),
     path('api/blog/register',views.registerView),
+
+    path('api/blog/userproperties',views.user_properties_view),
+    path('api/blog/userproperties/edit',views.user_properties_update_view),
+
     path('api/blog/login', obtain_auth_token),
     path('api/blog/pagination', APIBlogListView.as_view()),
     path('api/blog/searching', APISearchView.as_view()),
